@@ -8,9 +8,12 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
+import { MachinesService } from './machines.service';
 
 @Controller('machines')
 export class MachinesController {
+  // private : both declare and initialize MachinesService
+  constructor(private readonly machineService: MachinesService) {}
   @Get()
   findAll(@Query() paginationQuery) {
     const { limit, offset } = paginationQuery;
