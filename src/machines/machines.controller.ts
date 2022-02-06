@@ -8,6 +8,8 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
+import { CreateMachineDto } from './dto/create-machine.dto';
+import { UpdateMachineDto } from './dto/update-machine.dto';
 import { MachinesService } from './machines.service';
 
 @Controller('machines')
@@ -23,6 +25,7 @@ export class MachinesController {
   @Get('moissoneuses-batteuses')
   findSpecific() {
     return this.machineService.findSpecific();
+    // to illustrate nested path
   }
 
   @Get(':id')
@@ -31,20 +34,20 @@ export class MachinesController {
   }
 
   @Post()
-  create(@Body() body) {
-    return this.machineService.create(body);
+  create(@Body() createMachineDto: CreateMachineDto) {
+    return this.machineService.create(createMachineDto);
   }
 
   @Post('moissoneuses-batteuses')
-  createOne(@Body('marque') body) {
-    return this.machineService.createOne(body);
-    // return `This action creates a machine and return only brand`;
+  createOne(@Body('marque') createMachineDto: CreateMachineDto) {
+    return this.machineService.createOne(createMachineDto);
+    // return this action creates a machine and return only brand`;
     // be careful because others ignore properties won't be validate;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return this.machineService.update(id, body);
+  update(@Param('id') id: string, @Body() updateMachineDto: UpdateMachineDto) {
+    return this.machineService.update(id, updateMachineDto);
     // partial update
   }
 

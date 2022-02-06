@@ -40,6 +40,7 @@ export class MachinesService {
 
   create(createMachineDto: any) {
     this.machines.push(createMachineDto);
+    return createMachineDto;
   }
 
   createOne(createMachineDto: any) {
@@ -49,7 +50,7 @@ export class MachinesService {
   update(id: string, updateMachineDto: any) {
     const existingCoffee = this.findOne(id);
     if (existingCoffee) {
-      // update the existing entity
+      this.machines.push(updateMachineDto);
     }
   }
 
