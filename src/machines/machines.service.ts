@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Machine } from './entities/machine.entity';
 
 @Injectable()
@@ -24,11 +24,25 @@ export class MachinesService {
     return this.machines;
   }
 
+  findSpecific() {
+    return this.machines;
+  }
+
   findOne(id: string) {
-    return this.machines.find((item) => item.id === +id);
+    // use built in method for catches exceptions
+    // throw 'A random error';
+    const coffee = this.machines.find((item) => item.id === +id);
+    if (!coffee) {
+      throw new NotFoundException(`Machine #${id} not found`);
+    }
+    return coffee;
   }
 
   create(createMachineDto: any) {
+    this.machines.push(createMachineDto);
+  }
+
+  createOne(createMachineDto: any) {
     this.machines.push(createMachineDto);
   }
 
